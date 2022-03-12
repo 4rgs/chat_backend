@@ -1,0 +1,28 @@
+{
+  "name": "chat_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server",
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4rgs/chat_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4rgs/chat_backend/issues"
+  },
+  "homepage": "https://github.com/4rgs/chat_backend#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
