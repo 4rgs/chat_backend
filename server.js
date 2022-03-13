@@ -25,6 +25,9 @@ io.on("connection", (socket) => {
     //io.emit manda el mensaje a todos los clientes conectados al chat
     io.emit("mensajes", { nombre, mensaje });
   });
+  socket.on("respuesta", (nombre, mensaje) => {
+    io.emit("respuestas", { nombre, mensaje });
+  });
 
   socket.on("disconnect", () => {
     io.emit("mensajes", {
