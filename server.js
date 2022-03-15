@@ -5,8 +5,11 @@ const app = express();
 const servidor = http.createServer(app);
 
 //Inicializamos socketio
-const socketio = require("socket.io");
-const io = socketio(servidor);
+const io = require("socket.io")(servidor, {
+  cors: {
+    origin: "https://chat.spids.cl"
+  }
+});
 
 //Funcionalidad de socket.io en el servidor
 io.on("connection", (socket) => {
@@ -22,10 +25,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("mensaje", (nombre, mensaje) => {
-    //io.emit manda el mensaje a todos los clientes conectados al chat
+  //io.emit manda el mensaje a todos los clientes conectados al chat
     io.emit("mensajes", { nombre, mensaje });
   });
   socket.on("respuesta", (nombre, mensaje) => {
+    //io.emit la respuesta a todos los clientes conectados al chat
     io.emit("respuestas", { nombre, mensaje });
   });
 
