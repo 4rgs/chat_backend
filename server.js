@@ -11,6 +11,10 @@ const io = require("socket.io")(servidor, {
   }
 });
 
+app.get('/',(req,res) => {
+  res.send('habilitado')
+})
+
 //Funcionalidad de socket.io en el servidor
 io.on("connection", (socket) => {
   let nombre;
