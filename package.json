@@ -23,7 +23,7 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.19"
   },
-  "proxy":"http://localhost:8080"
+  "proxy": "http://localhost:8080"
 }

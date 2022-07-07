@@ -2,10 +2,10 @@
 const express = require("express");
 const http = require("http");
 const app = express();
-const servidor = http.createServer(app);
+const server = http.createServer(app);
+const port = process.env.PORT || 3000;
 
-//Inicializamos socketio
-const io = require("socket.io")(servidor, {
+const io = require("socket.io")(server, {
   cors: {
     origin: "https://chat.spids.cl"
   }
@@ -15,34 +15,34 @@ app.get('/',(req,res) => {
   res.send('habilitado')
 })
 
-//Funcionalidad de socket.io en el servidor
+//Funcionalidad de socket.io en el server
 io.on("connection", (socket) => {
   let nombre;
 
-  socket.on("conectado", (nomb) => {
-    nombre = nomb;
+  socket.on("connected", (name) => {
+    nombre = name;
     //socket.broadcast.emit manda el mensaje a todos los clientes excepto al que ha enviado el mensaje
-    socket.broadcast.emit("mensajes", {
+    socket.broadcast.emit("messages", {
       nombre: nombre,
       mensaje: `${nombre} ha entrado en la sala del chat`,
     });
   });
 
-  socket.on("mensaje", (nombre, mensaje) => {
+  socket.on("message", (nombre, mensaje) => {
   //io.emit manda el mensaje a todos los clientes conectados al chat
-    io.emit("mensajes", { nombre, mensaje });
+    io.emit("messages", { nombre, mensaje });
   });
-  socket.on("respuesta", (nombre, mensaje) => {
+  socket.on("response", (nombre, mensaje) => {
     //io.emit la respuesta a todos los clientes conectados al chat
-    io.emit("respuestas", { nombre, mensaje });
+    io.emit("response", { nombre, mensaje });
   });
 
   socket.on("disconnect", () => {
-    io.emit("mensajes", {
-      servidor: "Servidor",
-      mensaje: `${nombre} ha abandonado la sala`,
+    io.emit("messages", {
+      server: "Servidor",
+      message: `${nombre} ha abandonado la sala`,
     });
   });
 });
 
-servidor.listen(5000, () => console.log("Servidor inicializado"));
+server.listen(port, () => console.log("Servidor inicializado"));
